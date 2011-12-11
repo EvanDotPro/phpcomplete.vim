@@ -171,6 +171,9 @@ function! phpcomplete#CompletePHP(findstart, base)
 
 			endif
 
+            " TODO: If the file is already open, would it be faster to read it
+            " from the buffer? Also this could take into account unsaved chages.
+            " Perhaps that could actually be a setting.
 			if filereadable(classlocation)
 				let classfile = readfile(classlocation)
 				let classcontent = ''
@@ -762,8 +765,8 @@ function! phpcomplete#GetClassContents(file, name) " {{{
 	endif
 	call search('{')
 	normal! %
-
-	let classcontent = cfile
+    
+    let classcontent = join(getline(cfline, line('.')), "\n")
 
 	bw! %
 	if extends_class != ''
