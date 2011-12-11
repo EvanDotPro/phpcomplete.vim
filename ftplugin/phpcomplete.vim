@@ -112,11 +112,23 @@ function! phpcomplete#CompletePHP(findstart, base)
 		let classes += sort(keys(ext_classes))
 		let classes += sort(keys(g:php_omni_bi_classes))
 
-		for m in classes
-			if m =~ '^'.a:base
-				call add(res, m)
-			endif
-		endfor
+		if !exists("g:php_omni_casesensitive_classes")
+            let g:php_omni_casesensitive_classes = 0
+        endif
+
+        if g:php_omni_casesensitive_classes > 0
+            for m in classes
+                if m =~# '^'.a:base
+                    call add(res, m)
+                endif
+            endfor
+        else
+            for m in classes
+                if m =~ '^'.a:base
+                    call add(res, m)
+                endif
+            endfor
+        endif
 
 		let final_menu = []
 		for i in res
