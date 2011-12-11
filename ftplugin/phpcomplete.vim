@@ -71,7 +71,7 @@ function! phpcomplete#CompletePHP(findstart, base)
 		" Internal solution for finding classes in current file.
 		let file = getline(1, '$')
 		call filter(file,
-				\ 'v:val =~ "class\\s\\+[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*\\s*("')
+				\ 'v:val =~ "class\\s\\+[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*\\s*"')
 		let fnames = join(map(tagfiles(), 'escape(v:val, " \\#%")'))
 		let jfile = join(file, ' ')
 		let int_values = split(jfile, 'class\s\+')
